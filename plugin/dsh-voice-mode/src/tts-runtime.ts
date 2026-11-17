@@ -11,6 +11,16 @@
  * 非 Electron 宿主（Web 端）行为不变（沿用 process.execPath）。
  */
 import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
+/**
+ * Resolve the worker on disk for a child running outside Electron's ASAR reader.
+ * @param url - Worker URL relative to the built plugin.
+ * @returns The worker path; packaged hosts must unpack this file and its dependencies.
+ */
+export function resolveLocalWorkerPath(url: URL): string {
+  return fileURLToPath(url).replace(/\.asar([\\/])/g, '.asar.unpacked$1')
+}
 
 export interface NativeRuntime {
   /** 子进程可执行文件；undefined = 沿用 process.execPath。 */

@@ -700,7 +700,7 @@ function VoicePreviewButton({ voice, rate }: { voice: string; rate: number }): R
 function Row({ name, desc, children }: { name: string; desc: string; children: React.ReactNode }): React.ReactElement {
   const label = tr(`${name}Label` as TKey)
   return (
-    <div style={setRow}>
+    <div data-dshvm-row={name} style={setRow}>
       <div style={setLabelBox}>
         <span style={setLabel}>{label}</span>
         <span style={setHint}>{desc}</span>
@@ -765,7 +765,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div style={{ marginTop: 2 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0 2px' }}>
         <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--dsw-alias-label-secondary)' }}>{title}</span>
-        <span style={{ flex: 1, height: 1, background: t.border }} />
+        <span aria-hidden="true" style={{ flex: 1, borderTop: `0.5px solid ${t.border}` }} />
       </div>
       {children}
     </div>
@@ -1049,6 +1049,7 @@ function ModelStatusView(): React.ReactElement {
 
 export function VoiceSettingsCard({ scope, defaultOpen = false }: { scope: ScopeController; defaultOpen?: boolean }): React.ReactElement {
   useLang() // 语言切换时重渲染（字段标题/说明均走词典）
+  const bodyId = React.useId()
   const [snap, setSnap] = useState(() => scope.getSnapshot())
   const [collapsed, setCollapsed] = useState(!defaultOpen) // 默认折叠，与其他设置卡一致；独立设置页（settings.section）默认展开
   useEffect(
@@ -1101,9 +1102,9 @@ export function VoiceSettingsCard({ scope, defaultOpen = false }: { scope: Scope
   return (
     <div data-dshvm-settings="card" style={cardStyle}>
       <style>{focusVisibleCss}</style>
-      <button type="button" aria-expanded={!collapsed} aria-controls="dshvm-settings-card-body" onClick={() => setCollapsed((c) => !c)} style={{ ...setHeader, background: collapsed ? 'transparent' : t.bgOpen }}>
+      <button type="button" aria-expanded={!collapsed} aria-controls={bodyId} onClick={() => setCollapsed((c) => !c)} style={{ ...setHeader, background: collapsed ? 'transparent' : t.bgOpen }}>
         <span style={setHeadText}>
-          <span style={setName}>{tr('stateVoiceMode')}</span>
+          <span data-dshvm-title="" style={setName}>{tr('stateVoiceMode')}</span>
           <span style={setDesc}>{tr('settingsCardDesc')}</span>
         </span>
         <span style={{ ...setChevron, transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)' }} aria-hidden="true">
@@ -1114,7 +1115,7 @@ export function VoiceSettingsCard({ scope, defaultOpen = false }: { scope: Scope
       </button>
 
       {!collapsed && (
-        <div id="dshvm-settings-card-body" style={setBody}>
+        <div id={bodyId} style={setBody}>
           <EffectivePending effective={getRuntimeBoot()} value={value} ready={snap?.status === 'ready'} />
           <div style={{ marginTop: 4 }}>
             <Section title={tr('secRead')}>

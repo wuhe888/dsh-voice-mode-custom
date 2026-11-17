@@ -1,17 +1,17 @@
 {
-  "name": "dsh-voice-mode",
-  "description": "Voice plugin for DeepSeek Harness: local streaming speech recognition into editable drafts, sentence-by-sentence read-aloud with captions, and voice interruption. Edge online or local VITS/Kokoro TTS; host compatibility is bounded by engines.dsh.",
+  "name": "dsh-voice-mode-custom",
+  "description": "Custom edition of dsh-voice-mode 0.7.38 with a standalone sidebar settings page, responsive layout, and desktop worker fixes.",
   "icon": "./icon.svg",
-  "version": "0.7.38",
+  "version": "0.7.38-custom.1",
   "type": "module",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qishuilalala/dsh-voice-mode.git"
+    "url": "git+https://github.com/wuhe888/dsh-voice-mode-custom.git"
   },
-  "homepage": "https://github.com/qishuilalala/dsh-voice-mode#readme",
+  "homepage": "https://github.com/wuhe888/dsh-voice-mode-custom#readme",
   "bugs": {
-    "url": "https://github.com/qishuilalala/dsh-voice-mode/issues"
+    "url": "https://github.com/wuhe888/dsh-voice-mode-custom/issues"
   },
   "engines": {
     "node": ">=18.0.0",
@@ -64,7 +64,8 @@
     "smoke:runtime": "bash scripts/smoke-runtime.sh",
     "verify:dual": "bash scripts/verify-dual.sh",
     "e2e:full": "bash scripts/full-e2e.sh",
-    "check:root-manifest": "node scripts/check-root-manifest.mjs"
+    "check:root-manifest": "node scripts/check-root-manifest.mjs",
+    "test:custom": "node scripts/test-custom.mjs"
   },
   "dsh": {
     "bundle": {

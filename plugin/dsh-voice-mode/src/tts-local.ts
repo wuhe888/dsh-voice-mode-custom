@@ -13,8 +13,7 @@
  * 输出：PCM → WAV（PCM16）→ 经 SSE base64 下发，client 按 audio/wav 播放。
  */
 import { fork, type ChildProcess } from 'node:child_process'
-import { NativeRuntimeUnavailableError, resolveNativeRuntime } from './tts-runtime.ts'
-import { fileURLToPath } from 'node:url'
+import { NativeRuntimeUnavailableError, resolveNativeRuntime, resolveLocalWorkerPath } from './tts-runtime.ts'
 import { join } from 'node:path'
 import { statSync } from 'node:fs'
 import { ensureModelFile, ensureModelTree, type ModelFileSpec } from './models.ts'
@@ -210,7 +209,7 @@ export function createSherpaLocalEngine(options: LocalEngineOptions): TtsEngine 
   const repoName = options.kind === 'kokoro' ? kokoroModelDir(kokoroModel) : TTS_MODEL_REPO
   const repoDir = join(cacheDir, repoName)
   /** 子进程脚本路径：与 lib/index.js 同目录（构建产物 lib/tts-vits-worker.cjs，CJS 以获得 IPC）。 */
-  const workerPath = fileURLToPath(new URL('./tts-vits-worker.cjs', import.meta.url))
+  const workerPath = resolveLocalWorkerPath(new URL('./tts-vits-worker.cjs', import.meta.url))
 
   let child: ChildProcess | null = null
   /** 当前子进程是否已完成 init（避免每句合成都重建引擎实例——旧实现
@@ -362,6 +361,7 @@ export function createSherpaLocalEngine(options: LocalEngineOptions): TtsEngine 
             if (!runtime) throw new NativeRuntimeUnavailableError()
             child = fork(workerPath, [], {
               stdio: ['ignore', 'ignore', 'pipe', 'ipc'],
+              windowsHide: true,
               ...(runtime.execPath ? { execPath: runtime.execPath, env: runtime.env } : {}),
             })
             // R15 M4：登记本子进程身份。exit/error 回调是无条件写闭包变量 `child` 的——

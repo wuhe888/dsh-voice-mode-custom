@@ -1,4 +1,4 @@
-window.__ModuleLoader__.load({ id: "dsh-voice-mode", factory: (require) => {
+window.__ModuleLoader__.load({ id: "dsh-voice-mode-custom", factory: (require) => {
 var module = { exports: {} }; var exports = module.exports;
 "use strict";
 var __create = Object.create;
@@ -39,7 +39,7 @@ __export(client_exports, {
   inject: () => inject
 });
 module.exports = __toCommonJS(client_exports);
-var React = __toESM(require("react"), 1);
+var React2 = __toESM(require("react"), 1);
 var import_react3 = require("react");
 
 // src/resample.ts
@@ -1980,7 +1980,7 @@ var zh = {
   voiceHintEnglishVoice: "\u63D0\u793A\uFF1A\u5F53\u524D\u662F\u82F1\u6587\u97F3\u8272\uFF0C\u6717\u8BFB\u4E2D\u6587\u56DE\u590D\u6548\u679C\u4E0D\u4F73\uFF1B\u4E2D\u6587\u5BF9\u8BDD\u5EFA\u8BAE\u9009\u62E9\u4E2D\u6587\u97F3\u8272\uFF08zh-\u2026\uFF09\u3002"
 };
 var en = {
-  stateVoiceMode: "Voice Mode",
+  stateVoiceMode: "Voice mode",
   ttsNoticeFail: "Read-aloud connection failed: retrying\u2026",
   ttsSkipNotice: "One sentence failed to read and was skipped (resend the message to retry)",
   ttsUnavailableNotice: "Read-aloud keeps failing: cloud TTS is unavailable. Try again later, or switch the read-aloud engine to local VITS / Kokoro in settings",
@@ -2576,6 +2576,7 @@ function getRuntimeBoot() {
 }
 
 // src/settings-form.tsx
+var React = __toESM(require("react"), 1);
 var import_react2 = require("react");
 
 // src/voice-catalog.ts
@@ -3364,7 +3365,7 @@ function VoicePreviewButton({ voice, rate }) {
 }
 function Row({ name: name2, desc, children }) {
   const label = t(`${name2}Label`);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: setRow, children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-dshvm-row": name2, style: setRow, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: setLabelBox, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: setLabel, children: label }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: setHint, children: desc })
@@ -3404,7 +3405,7 @@ function Section({ title, children }) {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 2 }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8, padding: "10px 0 2px" }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 11, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", color: "var(--dsw-alias-label-secondary)" }, children: title }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { flex: 1, height: 1, background: t2.border } })
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { "aria-hidden": "true", style: { flex: 1, borderTop: `0.5px solid ${t2.border}` } })
     ] }),
     children
   ] });
@@ -3621,6 +3622,7 @@ function ModelStatusView() {
 }
 function VoiceSettingsCard({ scope, defaultOpen = false }) {
   useLang();
+  const bodyId = React.useId();
   const [snap, setSnap] = (0, import_react2.useState)(() => scope.getSnapshot());
   const [collapsed, setCollapsed] = (0, import_react2.useState)(!defaultOpen);
   (0, import_react2.useEffect)(
@@ -3652,14 +3654,14 @@ function VoiceSettingsCard({ scope, defaultOpen = false }) {
   }
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-dshvm-settings": "card", style: cardStyle, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", { children: focusVisibleCss }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { type: "button", "aria-expanded": !collapsed, "aria-controls": "dshvm-settings-card-body", onClick: () => setCollapsed((c) => !c), style: { ...setHeader, background: collapsed ? "transparent" : t2.bgOpen }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { type: "button", "aria-expanded": !collapsed, "aria-controls": bodyId, onClick: () => setCollapsed((c) => !c), style: { ...setHeader, background: collapsed ? "transparent" : t2.bgOpen }, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: setHeadText, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: setName, children: t("stateVoiceMode") }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { "data-dshvm-title": "", style: setName, children: t("stateVoiceMode") }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: setDesc, children: t("settingsCardDesc") })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { ...setChevron, transform: collapsed ? "rotate(0deg)" : "rotate(180deg)" }, "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { viewBox: "0 0 16 16", width: 14, height: 14, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { fill: "currentColor", d: "M4 6l4 4 4-4z" }) }) })
     ] }),
-    !collapsed && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { id: "dshvm-settings-card-body", style: setBody, children: [
+    !collapsed && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { id: bodyId, style: setBody, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(EffectivePending, { effective: getRuntimeBoot(), value, ready: snap?.status === "ready" }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginTop: 4 }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Section, { title: t("secRead"), children: [
@@ -3857,6 +3859,45 @@ function VoiceSettingsCard({ scope, defaultOpen = false }) {
   ] });
 }
 
+// src/custom-settings-page.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var pageStyles = `
+.dsh-voice-settings-page {
+  display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0;
+  box-sizing: border-box; overflow: auto; padding: 28px clamp(24px, 4vw, 48px);
+  container: dsh-voice-page / inline-size; scrollbar-gutter: stable both-edges;
+}
+.dsh-voice-settings-content { flex: none; width: 100%; max-width: 960px; min-width: 0; margin: auto; }
+.dsh-voice-settings-page [data-dshvm-settings="card"] > button {
+  display: grid !important; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px !important;
+}
+.dsh-voice-settings-page [data-dshvm-settings="card"] > button > span:first-child { display: contents !important; }
+.dsh-voice-settings-page [data-dshvm-title] {
+  grid-column: 1 / -1; text-align: center; font-size: 15px !important; line-height: 21px !important; font-weight: 500 !important;
+}
+@media (max-width: 767px) { .dsh-voice-settings-page { padding: 20px; } }
+@container dsh-voice-page (max-width: 640px) {
+  .dsh-voice-settings-page [data-dshvm-row] { flex-direction: column; align-items: stretch !important; }
+  .dsh-voice-settings-page [data-dshvm-row] > span { max-width: 100% !important; }
+  .dsh-voice-settings-page [data-dshvm-row] :is(input, select) { max-width: 100%; }
+  .dsh-voice-settings-page [role="group"] { flex-wrap: wrap; }
+}
+@media (pointer: coarse) { .dsh-voice-settings-page :is(input, select) { font-size: 16px !important; } }
+`;
+function VoiceSettingsPage({ scope }) {
+  useLang();
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("section", { className: "dsh-voice-settings-page", "aria-label": t("stateVoiceMode"), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("style", { children: pageStyles }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-voice-settings-content", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(VoiceSettingsCard, { scope, defaultOpen: true }) })
+  ] });
+}
+function VoiceMicrophoneIcon({ size = 16 }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 24 24", width: size, height: size, "aria-hidden": "true", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "currentColor", d: "M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "currentColor", d: "M17.3 11a.9.9 0 0 0-1.8 0 3.5 3.5 0 0 1-7 0 .9.9 0 0 0-1.8 0 5.3 5.3 0 0 0 4.4 5.2v1.9h-1.7a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-1.7v-1.9A5.3 5.3 0 0 0 17.3 11Z" })
+  ] });
+}
+
 // src/settings-http-scope.ts
 var SETTINGS_URL = "/voice-mode/settings";
 var RETRY_BASE_MS = 500;
@@ -3980,7 +4021,7 @@ function createHttpScope(origin = location.origin, fetchImpl = fetch, timeoutMs 
 }
 
 // src/client.tsx
-var import_jsx_runtime2 = require("react/jsx-runtime");
+var import_jsx_runtime3 = require("react/jsx-runtime");
 var isSpeechTrueCount = 0;
 var interruptFirstAt = 0;
 var isSpeechFalseRun = 0;
@@ -4011,7 +4052,7 @@ function telemetryDeltas(tel) {
   }
   return out;
 }
-var BUILD_TAG = "e931c32";
+var BUILD_TAG = "c8eed54";
 var TELEMETRY_FLAG = "dsh-voice-mode.telemetry";
 var telemetryEnabled = typeof localStorage !== "undefined" && localStorage.getItem(TELEMETRY_FLAG) === "1";
 console.log("[dsh-voice] build=" + BUILD_TAG);
@@ -4130,7 +4171,7 @@ function apply(ctx) {
         activityChanged();
       };
     }, []);
-    return React.createElement(MicButton, props);
+    return React2.createElement(MicButton, props);
   };
   const RightMic = (props) => {
     const [show, setShow] = (0, import_react3.useState)(() => !activity.declared);
@@ -4149,7 +4190,7 @@ function apply(ctx) {
         clearTimeout(timer);
       };
     }, []);
-    return show ? React.createElement(MicButton, props) : null;
+    return show ? React2.createElement(MicButton, props) : null;
   };
   ctx.slots.inject("conversation.input.activity", () => {
     activity.declared = true;
@@ -4216,6 +4257,14 @@ function apply(ctx) {
     settingsScopeInvalidate = bridge.invalidate;
     registerScopeDispose(ctx, raw);
   }
+  ctx.slots.inject("main", () => ctx.slots.register(
+    { name: "main", key: "voice-mode", inject: () => ({ scope }) },
+    VoiceSettingsPage
+  ));
+  ctx.slots.inject("sidebar.panellist", () => ctx.slots.register(
+    { name: "sidebar.panellist", id: "voice-mode", order: -5, label: () => t("stateVoiceMode") },
+    VoiceMicrophoneIcon
+  ));
   ctx.slots.inject(
     "settings.plugin.item",
     () => ctx.slots.register(
@@ -4228,21 +4277,21 @@ function apply(ctx) {
         // 切换语言前的旧文案冻在菜单里；函数形式每次渲染读当前语言。
         label: () => t("stateVoiceMode")
       },
-      () => React.createElement(VoiceSettingsCard, { scope })
+      () => React2.createElement(VoiceSettingsCard, { scope })
     )
   );
   ctx.slots.inject(
     "settings.section",
     () => ctx.slots.register(
       { name: "settings.section", id: "voice-mode", order: 100, label: () => t("stateVoiceMode") },
-      () => React.createElement(VoiceSettingsCard, { scope, defaultOpen: true })
+      () => React2.createElement(VoiceSettingsCard, { scope, defaultOpen: true })
     )
   );
   ctx.slots.inject(
     "plugins.bundle.config",
     () => ctx.slots.register(
-      { name: "plugins.bundle.config", key: "dsh-voice-mode" },
-      (props) => props?.view === "summary" ? React.createElement("span", null, t("settingsCardDesc")) : React.createElement(VoiceSettingsCard, { scope })
+      { name: "plugins.bundle.config", key: "dsh-voice-mode-custom" },
+      (props) => props?.view === "summary" ? React2.createElement("span", null, t("settingsCardDesc")) : React2.createElement(VoiceSettingsCard, { scope })
     )
   );
 }
@@ -5281,24 +5330,24 @@ function MicMenu({ scope, anchor, onClose }) {
     ...below ? { top: r ? Math.round(r.bottom + 8) : 96 } : { bottom: Math.round(window.innerHeight - r.top + 8) },
     ...adj && (adj.dx !== 0 || adj.dy !== 0) ? { transform: `translate(${adj.dx}px, ${adj.dy}px)` } : null
   };
-  const item = (role, checked, label, onPick) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", role, "aria-checked": checked, className: "dshvm-menu-item", onClick: onPick, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: label }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dshvm-menu-check", children: checked ? "\u2713" : "" })
+  const item = (role, checked, label, onPick) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("button", { type: "button", role, "aria-checked": checked, className: "dshvm-menu-item", onClick: onPick, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { children: label }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "dshvm-menu-check", children: checked ? "\u2713" : "" })
   ] }, label);
   const set = (field, value) => void scope.set(field, value);
   const mode = v.mode === "hold" || v.mode === "once" ? v.mode : "toggle";
   const read = v.readAloud === "always" || v.readAloud === "off" ? v.readAloud : "voice";
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: menuRef, className: "dshvm-menu", role: "menu", "aria-label": t("stateVoiceMode"), style: pos, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dshvm-menu-label", children: t("modeLabel") }),
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { ref: menuRef, className: "dshvm-menu", role: "menu", "aria-label": t("stateVoiceMode"), style: pos, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dshvm-menu-label", children: t("modeLabel") }),
     ["toggle", "hold", "once"].map(
       (m) => item("menuitemradio", mode === m, t(m === "toggle" ? "modeToggle" : m === "hold" ? "modeHold" : "modeOnce"), () => set("mode", m))
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dshvm-menu-sep" }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dshvm-menu-label", children: t("readAloudLabel") }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dshvm-menu-sep" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dshvm-menu-label", children: t("readAloudLabel") }),
     ["voice", "always", "off"].map(
       (m) => item("menuitemradio", read === m, t(m === "voice" ? "readAloudVoice" : m === "always" ? "readAloudAlways" : "readAloudOff"), () => set("readAloud", m))
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dshvm-menu-sep" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dshvm-menu-sep" }),
     item("menuitemcheckbox", v.showCaptions !== false, t("showCaptionsLabel"), () => set("showCaptions", v.showCaptions === false)),
     item("menuitemcheckbox", v.showStatusBar !== false, t("showStatusBarLabel"), () => set("showStatusBar", v.showStatusBar === false)),
     item("menuitemcheckbox", v.autoSend !== false, t("autoSendLabel"), () => set("autoSend", v.autoSend === false))
@@ -6680,13 +6729,13 @@ function MicButton({
     return () => clearInterval(id);
   }, [showTimer]);
   const [menuOpen, setMenuOpen] = (0, import_react3.useState)(false);
-  const closeMenu = React.useCallback((refocus) => {
+  const closeMenu = React2.useCallback((refocus) => {
     setMenuOpen(false);
     if (refocus) btnRef.current?.focus();
   }, []);
   const title = bus.ui.error ? String(bus.ui.error) : reading ? t("stopReading") : on ? holdMode ? t("titleHold") : t("titleToggle") : t("titleEnter");
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
       "button",
       {
         type: "button",
@@ -6728,22 +6777,13 @@ function MicButton({
         "aria-expanded": scope ? menuOpen : void 0,
         title,
         children: [
-          visual !== "waiting" && bus.ui.isSpeech === true && on && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dshvm-mic-dot", "data-kind": "vad", title: t("vadDetected") }),
-          bus.ui.error && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dshvm-mic-dot", "data-kind": "error" }),
-          visual === "waiting" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 24 24", width: 16, height: 16, "aria-hidden": "true", className: "dshvm-spin", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("circle", { cx: 12, cy: 12, r: 8, fill: "none", stroke: "currentColor", strokeWidth: 2, opacity: 0.25 }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M12 4a8 8 0 0 1 8 8", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" })
-          ] }) : visual === "ending" ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { viewBox: "0 0 24 24", width: 16, height: 16, "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M5.5 12.5l4.2 4.2 8.8-8.8", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }) }) : eqKind ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: eqKind === "out" ? "dshvm-eq dshvm-eq-out" : "dshvm-eq", "aria-hidden": "true", children: (eqKind === "out" ? [6, 10, 14, 10, 6] : [6, 12, 8]).map((h, i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("i", { style: { height: h } }, i)) }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 24 24", width: 16, height: 16, "aria-hidden": "true", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "currentColor", d: "M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" }),
-            /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-              "path",
-              {
-                fill: "currentColor",
-                d: "M17.3 11a.9.9 0 0 0-1.8 0 3.5 3.5 0 0 1-7 0 .9.9 0 0 0-1.8 0 5.3 5.3 0 0 0 4.4 5.2v1.9h-1.7a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-1.7v-1.9A5.3 5.3 0 0 0 17.3 11Z"
-              }
-            )
-          ] }),
-          showTimer && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "dshvm-mic-timer", "aria-hidden": "true", children: [
+          visual !== "waiting" && bus.ui.isSpeech === true && on && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "dshvm-mic-dot", "data-kind": "vad", title: t("vadDetected") }),
+          bus.ui.error && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "dshvm-mic-dot", "data-kind": "error" }),
+          visual === "waiting" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("svg", { viewBox: "0 0 24 24", width: 16, height: 16, "aria-hidden": "true", className: "dshvm-spin", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: 12, cy: 12, r: 8, fill: "none", stroke: "currentColor", strokeWidth: 2, opacity: 0.25 }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M12 4a8 8 0 0 1 8 8", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" })
+          ] }) : visual === "ending" ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("svg", { viewBox: "0 0 24 24", width: 16, height: 16, "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M5.5 12.5l4.2 4.2 8.8-8.8", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }) }) : eqKind ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: eqKind === "out" ? "dshvm-eq dshvm-eq-out" : "dshvm-eq", "aria-hidden": "true", children: (eqKind === "out" ? [6, 10, 14, 10, 6] : [6, 12, 8]).map((h, i) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("i", { style: { height: h } }, i)) }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(VoiceMicrophoneIcon, {}),
+          showTimer && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "dshvm-mic-timer", "aria-hidden": "true", children: [
             String(Math.floor(elapsed / 60)).padStart(2, "0"),
             ":",
             String(elapsed % 60).padStart(2, "0")
@@ -6751,8 +6791,8 @@ function MicButton({
         ]
       }
     ),
-    menuOpen && scope && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(MicMenu, { scope, anchor: btnRef.current, onClose: closeMenu }),
-    micHint && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    menuOpen && scope && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MicMenu, { scope, anchor: btnRef.current, onClose: closeMenu }),
+    micHint && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "span",
       {
         "data-dshvm": "mic-hint",
@@ -6816,7 +6856,7 @@ function VoiceStatusBar({ bus, sessionId }) {
     return () => clearInterval(id);
   }, [b.ui.state]);
   const isActive = b.active === sessionId;
-  if (!isActive || b.ui.boot?.showStatusBar === false) return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {});
+  if (!isActive || b.ui.boot?.showStatusBar === false) return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, {});
   const stateText = b.ui.state === "loading-model" ? t("loadingModel") : b.ui.state === "transcribing" ? transcribingSec >= 2 ? t("recognizingSec").replace("{sec}", String(transcribingSec)) : t("recognizing") : b.ui.state === "wake" ? t("sayWake").replace("{wake}", b.ui.wakeWord || t("wakeWord")) : b.ui.state === "speech" ? b.ui.mode === "hold" ? t("holdDots") : t("listening") : b.ui.playing ? t("reading") : b.ui.turn === "agent-speaking" ? t("thinking") : b.ui.mode === "hold" ? t("barHold") : t("barListening");
   const bars = Array.from({ length: WAVE_BARS }, (_, i) => b.ui.levels[i] ?? 0);
   const botBars = Array.from({ length: WAVE_BARS }, (_, i) => b.ui.botLevels[i] ?? 0);
@@ -6843,13 +6883,17 @@ function VoiceStatusBar({ bus, sessionId }) {
       `AEC delay=${Math.round(b.ui.echoDelayMs ?? 0)}ms floor=${el.floorRms.toFixed(4)} resid=${el.residualRms.toFixed(4)}`
     );
   }
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { style: { display: "flex", justifyContent: "center", paddingInline: "var(--dsh-composer-side-clearance, 20px)" }, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
     "div",
     {
       style: {
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        boxSizing: "border-box",
+        width: "100%",
+        maxWidth: "var(--dsh-composer-card-max-width, 960px)",
+        minWidth: 0,
         padding: "6px 12px",
         borderRadius: 10,
         fontSize: 12,
@@ -6860,8 +6904,8 @@ function VoiceStatusBar({ bus, sessionId }) {
         animation: "dshvm-fadein 0.2s ease"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
-          botBars.some((v) => v > 0) && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8 }, children: [
+          botBars.some((v) => v > 0) && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "aria-hidden": "true",
@@ -6873,7 +6917,7 @@ function VoiceStatusBar({ bus, sessionId }) {
                 height: 14,
                 flexShrink: 0
               },
-              children: botBars.map((v, i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+              children: botBars.map((v, i) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
                 "span",
                 {
                   className: "dshvm-bar-bot",
@@ -6887,7 +6931,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               ))
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { "aria-hidden": "true", style: { display: "inline-flex", alignItems: "flex-end", gap: 2, height: 14, flexShrink: 0 }, children: bars.map((v, i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { "aria-hidden": "true", style: { display: "inline-flex", alignItems: "flex-end", gap: 2, height: 14, flexShrink: 0 }, children: bars.map((v, i) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               className: "dshvm-bar",
@@ -6899,7 +6943,7 @@ function VoiceStatusBar({ bus, sessionId }) {
             },
             i
           )) }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "data-dshvm": "status-text",
@@ -6917,7 +6961,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: b.ui.error || (b.ui.sseDown ? t("sseReconnect") : "") || b.ui.notice || (b.ui.idleWarn ? t("idleWarn30s") : "") || (b.ui.state === "transcribing" ? t("recognizing") : stateText)
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "aria-hidden": "true",
@@ -6925,7 +6969,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: b.ui.error ? b.ui.error : b.ui.sseDown ? t("sseReconnect") : b.ui.notice ? b.ui.notice : b.ui.idleWarn ? t("idleWarn30s") : b.ui.state === "loading-model" || b.ui.model ? b.ui.model ? `${t("loadingModel")} ${b.ui.model.file} ${b.ui.model.percent}%` : stateText : b.ui.playing || b.ui.turn === "agent-speaking" ? stateText : b.ui.state === "wake" && b.ui.partial ? `${stateText} \xB7 ${b.ui.partial}` : b.ui.partial ? b.ui.partial : b.ui.ttsNotice ? b.ui.ttsNotice : stateText
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "button",
             {
               type: "button",
@@ -6945,7 +6989,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: t("diagCopy")
             }
           ),
-          b.ui.isSpeech === true && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          b.ui.isSpeech === true && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "aria-hidden": "true",
@@ -6963,7 +7007,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: t("vadDetected")
             }
           ),
-          b.ui.ttsNotice && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          b.ui.ttsNotice && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "aria-hidden": "true",
@@ -6985,7 +7029,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: b.ui.ttsNotice
             }
           ),
-          elapsedSec > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+          elapsedSec > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
             "span",
             {
               "aria-hidden": "true",
@@ -7007,7 +7051,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               ]
             }
           ),
-          b.ui.aecOff === true && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          b.ui.aecOff === true && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "span",
             {
               "aria-hidden": "true",
@@ -7025,7 +7069,7 @@ function VoiceStatusBar({ bus, sessionId }) {
               children: b.ui.bargeInDetectFallback ? t("bargeInDetectFallback") : t("aecOff")
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
             "button",
             {
               onClick: () => {
@@ -7043,7 +7087,7 @@ function VoiceStatusBar({ bus, sessionId }) {
             }
           )
         ] }),
-        telParts.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        telParts.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "div",
           {
             "aria-hidden": "true",
@@ -7060,7 +7104,7 @@ function VoiceStatusBar({ bus, sessionId }) {
         )
       ]
     }
-  );
+  ) });
 }
 function VoiceOverlay({ bus }) {
   useLang();
@@ -7068,8 +7112,8 @@ function VoiceOverlay({ bus }) {
   (0, import_react3.useEffect)(() => {
     return bus.subscribe(setB);
   }, [bus]);
-  if (!b.ui.playing || b.ui.boot?.showCaptions === false) return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {});
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+  if (!b.ui.playing || b.ui.boot?.showCaptions === false) return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_jsx_runtime3.Fragment, {});
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
     "div",
     {
       role: "status",
@@ -7110,7 +7154,7 @@ function VoiceOverlay({ bus }) {
         animation: "dshvm-fadein 0.25s ease"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { style: { display: "inline-flex", alignItems: "flex-end", gap: 2, height: 12, flexShrink: 0 }, children: [0, 1, 2].map((i) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { style: { display: "inline-flex", alignItems: "flex-end", gap: 2, height: 12, flexShrink: 0 }, children: [0, 1, 2].map((i) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "span",
           {
             style: {
@@ -7124,7 +7168,7 @@ function VoiceOverlay({ bus }) {
           },
           i
         )) }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "span",
           {
             className: "dshvm-caption",
@@ -7141,7 +7185,7 @@ function VoiceOverlay({ bus }) {
           },
           b.ui.playingCaption ?? "idle"
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "button",
           {
             onClick: () => bus.skipAudio(),

@@ -62,6 +62,7 @@ let lastReenterAt = 0
 /** 打断灵敏度三档 → isSpeech 连续确认帧数（墙钟节拍 100ms/拍 + 上行往返 → 确认阶段约 0.3/0.2/0.1s；语义对齐旧能量持续时长档位）。 */
 const INT_CONFIRM_FRAMES: Record<0 | 1 | 2, number> = { 0: 3, 1: 2, 2: 1 }
 import { VoiceSettingsCard } from './settings-form.tsx'
+import { VoiceSettingsPage, VoiceMicrophoneIcon } from './custom-settings-page.tsx'
 import { createHttpScope } from './settings-http-scope.ts'
 
 // settingsScope 仅 ≤0.1.6 客户端提供；0.1.7+ 已移除，列入 inject 会使插件永远 pending（真机冒烟实证）。
@@ -561,6 +562,12 @@ export function apply(ctx: any): void {
     // ctx.effect 的返回值即清理函数，宿主在卸载/热重载时调用。
     registerScopeDispose(ctx, raw)
   }
+  ctx.slots.inject('main', () => ctx.slots.register(
+    { name: 'main', key: 'voice-mode', inject: () => ({ scope }) }, VoiceSettingsPage,
+  ))
+  ctx.slots.inject('sidebar.panellist', () => ctx.slots.register(
+    { name: 'sidebar.panellist', id: 'voice-mode', order: -5, label: () => t('stateVoiceMode') }, VoiceMicrophoneIcon,
+  ))
   ctx.slots.inject('settings.plugin.item', () =>
     ctx.slots.register(
       {
@@ -585,7 +592,7 @@ export function apply(ctx: any): void {
   )
   ctx.slots.inject('plugins.bundle.config', () =>
     ctx.slots.register(
-      { name: 'plugins.bundle.config', key: 'dsh-voice-mode' },
+      { name: 'plugins.bundle.config', key: 'dsh-voice-mode-custom' },
       (props: { view?: 'summary' | 'page' }) =>
         props?.view === 'summary'
           ? React.createElement('span', null, t('settingsCardDesc'))
@@ -3968,13 +3975,7 @@ export function MicButton({
             ))}
           </span>
         ) : (
-          <svg viewBox="0 0 24 24" width={16} height={16} aria-hidden="true">
-            <path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" />
-            <path
-              fill="currentColor"
-              d="M17.3 11a.9.9 0 0 0-1.8 0 3.5 3.5 0 0 1-7 0 .9.9 0 0 0-1.8 0 5.3 5.3 0 0 0 4.4 5.2v1.9h-1.7a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-1.7v-1.9A5.3 5.3 0 0 0 17.3 11Z"
-            />
-          </svg>
+          <VoiceMicrophoneIcon />
         )}
         {showTimer && (
           <span className="dshvm-mic-timer" aria-hidden="true">
@@ -4126,6 +4127,7 @@ export function VoiceStatusBar({ bus, sessionId }: StatusBarProps): React.ReactE
   }
 
   return (
+    <div style={{ display: 'flex', justifyContent: 'center', paddingInline: 'var(--dsh-composer-side-clearance, 20px)' }}>
     <div
       // 可访问性（Issue #15 UX / I-19）：live 语义只放在下方「状态文本节点」（sr-only，
       // role=status aria-atomic）；波形/计时/partial/角标一律 aria-hidden——整条状态条
@@ -4134,6 +4136,10 @@ export function VoiceStatusBar({ bus, sessionId }: StatusBarProps): React.ReactE
         display: 'flex',
         flexDirection: 'column',
         gap: 2,
+        boxSizing: 'border-box',
+        width: '100%',
+        maxWidth: 'var(--dsh-composer-card-max-width, 960px)',
+        minWidth: 0,
         padding: '6px 12px',
         borderRadius: 10,
         fontSize: 12,
@@ -4361,6 +4367,7 @@ export function VoiceStatusBar({ bus, sessionId }: StatusBarProps): React.ReactE
           {telParts.join(' · ')}
         </div>
       )}
+    </div>
     </div>
   )
 }

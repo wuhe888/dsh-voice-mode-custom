@@ -297,7 +297,7 @@ export const zh = {
 } as const
 
 export const en: Record<keyof typeof zh, string> = {
-  stateVoiceMode: 'Voice Mode',
+  stateVoiceMode: 'Voice mode',
   ttsNoticeFail: 'Read-aloud connection failed: retrying…',
   ttsSkipNotice: 'One sentence failed to read and was skipped (resend the message to retry)',
   ttsUnavailableNotice: 'Read-aloud keeps failing: cloud TTS is unavailable. Try again later, or switch the read-aloud engine to local VITS / Kokoro in settings',

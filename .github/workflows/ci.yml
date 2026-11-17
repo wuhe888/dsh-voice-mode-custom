@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   test:
+    if: github.repository == 'qishuilalala/dsh-voice-mode'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:
@@ -61,6 +62,7 @@ jobs:
   # dsh ≥0.1.7 已安装形态下无法使用，见 docs/adr/0011）。此 job 对打包产物做 pnpm(严格 build 脚本策略)+npm 全新安装并 import，
   # 并用 Node 18（engines 下限）与 22 各跑一遍，兑现 package.json 的 engines 声明。
   install:
+    if: github.repository == 'qishuilalala/dsh-voice-mode'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -90,6 +92,7 @@ jobs:
   # 依赖安全：msedge-tts 连同其传递依赖（axios、ws 等）被内联进发布包（ADR-0011），其漏洞即我们的漏洞；
   # 此 job 在已知高危（high 及以上）公告出现时让 CI 变红，提醒及时升级（见 pnpm-workspace.yaml 的 overrides）。
   audit:
+    if: github.repository == 'qishuilalala/dsh-voice-mode'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:

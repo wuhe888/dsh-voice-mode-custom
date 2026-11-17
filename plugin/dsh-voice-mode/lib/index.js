@@ -1808,6 +1808,10 @@ import { fork } from "node:child_process";
 
 // src/tts-runtime.ts
 import { spawnSync } from "node:child_process";
+import { fileURLToPath as fileURLToPath2 } from "node:url";
+function resolveLocalWorkerPath(url) {
+  return fileURLToPath2(url).replace(/\.asar([\\/])/g, ".asar.unpacked$1");
+}
 var probeNode = (command, env) => {
   try {
     const r = spawnSync(
@@ -1856,7 +1860,6 @@ function resolveNativeRuntime(opts = {}) {
 }
 
 // src/tts-local.ts
-import { fileURLToPath as fileURLToPath2 } from "node:url";
 import { join as join3 } from "node:path";
 import { statSync as statSync2 } from "node:fs";
 
@@ -2104,7 +2107,7 @@ function createSherpaLocalEngine(options) {
   const spec = options.kind === "kokoro" ? kokoroSpec(kokoroModel) : VITS_SPEC;
   const repoName = options.kind === "kokoro" ? kokoroModelDir(kokoroModel) : TTS_MODEL_REPO;
   const repoDir = join3(cacheDir, repoName);
-  const workerPath = fileURLToPath2(new URL("./tts-vits-worker.cjs", import.meta.url));
+  const workerPath = resolveLocalWorkerPath(new URL("./tts-vits-worker.cjs", import.meta.url));
   let child = null;
   let childInit = false;
   let closed = false;
@@ -2198,6 +2201,7 @@ function createSherpaLocalEngine(options) {
               if (!runtime) throw new NativeRuntimeUnavailableError();
               child = fork(workerPath, [], {
                 stdio: ["ignore", "ignore", "pipe", "ipc"],
+                windowsHide: true,
                 ...runtime.execPath ? { execPath: runtime.execPath, env: runtime.env } : {}
               });
               const me = child;
@@ -2434,7 +2438,7 @@ var RateLimiter = class {
 
 // src/strings.ts
 var en = {
-  stateVoiceMode: "Voice Mode",
+  stateVoiceMode: "Voice mode",
   ttsNoticeFail: "Read-aloud connection failed: retrying\u2026",
   ttsSkipNotice: "One sentence failed to read and was skipped (resend the message to retry)",
   ttsUnavailableNotice: "Read-aloud keeps failing: cloud TTS is unavailable. Try again later, or switch the read-aloud engine to local VITS / Kokoro in settings",

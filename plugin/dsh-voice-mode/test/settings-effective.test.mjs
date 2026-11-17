@@ -90,7 +90,7 @@ t('settings-form：NEXT_ENTRY_FIELDS 清单 + EffectivePending 渲染', () => {
 })
 
 t('README：设置入口引导 + 四档生效时机', () => {
-  assert.ok(readmeSrc.includes('设置（Settings）→ 语音模式（Voice Mode）'), '缺全版本通用入口引导')
+  assert.ok(readmeSrc.includes('设置（Settings）→ 语音模式（Voice mode）'), '缺全版本通用入口引导')
   assert.ok(readmeSrc.includes('生效时机分四档'), '缺四档生效时机说明')
   assert.ok(readmeSrc.includes('当前生效值'), '缺当前生效值指引')
 })

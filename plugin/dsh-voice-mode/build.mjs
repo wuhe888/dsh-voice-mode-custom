@@ -14,7 +14,7 @@ import { parseArgs } from 'node:util'
 const { values } = parseArgs({ options: { outdir: { type: 'string', default: 'lib' } } })
 const outdir = values.outdir
 
-const PKG_ID = 'dsh-voice-mode'
+const PKG_ID = JSON.parse(readFileSync('package.json', 'utf8')).name
 
 // 构建版本号：git 短哈希（进入语音模式时打到控制台，供确认运行版本）。
 let BUILD_TAG = 'unknown'
