@@ -3873,7 +3873,7 @@ var pageStyles = `
 }
 .dsh-voice-settings-page [data-dshvm-settings="card"] > button > span:first-child { display: contents !important; }
 .dsh-voice-settings-page [data-dshvm-title] {
-  grid-column: 1 / -1; text-align: center; font-size: 15px !important; line-height: 21px !important; font-weight: 500 !important;
+  grid-column: 1 / -1; text-align: center; font-size: 15px !important; line-height: 21px !important; font-weight: 700 !important;
 }
 @media (max-width: 767px) { .dsh-voice-settings-page { padding: 20px; } }
 @container dsh-voice-page (max-width: 640px) {
@@ -3895,6 +3895,12 @@ function VoiceMicrophoneIcon({ size = 16 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 24 24", width: size, height: size, "aria-hidden": "true", children: [
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "currentColor", d: "M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" }),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "currentColor", d: "M17.3 11a.9.9 0 0 0-1.8 0 3.5 3.5 0 0 1-7 0 .9.9 0 0 0-1.8 0 5.3 5.3 0 0 0 4.4 5.2v1.9h-1.7a.9.9 0 0 0 0 1.8h5.2a.9.9 0 0 0 0-1.8h-1.7v-1.9A5.3 5.3 0 0 0 17.3 11Z" })
+  ] });
+}
+function VoiceSidebarMicrophoneIcon({ size = 16 }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 16 16", width: size, height: size, fill: "none", stroke: "currentColor", strokeWidth: 1.2, "aria-hidden": "true", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("rect", { x: 5, y: 1.5, width: 6, height: 9, rx: 3 }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M2.35 8.675C3.075 11.3 5.2 13.125 8 13.125C10.8 13.125 12.925 11.3 13.65 8.675M8 13.125V15" })
   ] });
 }
 
@@ -4052,7 +4058,7 @@ function telemetryDeltas(tel) {
   }
   return out;
 }
-var BUILD_TAG = "c8eed54";
+var BUILD_TAG = "0b532c4";
 var TELEMETRY_FLAG = "dsh-voice-mode.telemetry";
 var telemetryEnabled = typeof localStorage !== "undefined" && localStorage.getItem(TELEMETRY_FLAG) === "1";
 console.log("[dsh-voice] build=" + BUILD_TAG);
@@ -4263,7 +4269,7 @@ function apply(ctx) {
   ));
   ctx.slots.inject("sidebar.panellist", () => ctx.slots.register(
     { name: "sidebar.panellist", id: "voice-mode", order: -5, label: () => t("stateVoiceMode") },
-    VoiceMicrophoneIcon
+    VoiceSidebarMicrophoneIcon
   ));
   ctx.slots.inject(
     "settings.plugin.item",

@@ -62,7 +62,7 @@ let lastReenterAt = 0
 /** 打断灵敏度三档 → isSpeech 连续确认帧数（墙钟节拍 100ms/拍 + 上行往返 → 确认阶段约 0.3/0.2/0.1s；语义对齐旧能量持续时长档位）。 */
 const INT_CONFIRM_FRAMES: Record<0 | 1 | 2, number> = { 0: 3, 1: 2, 2: 1 }
 import { VoiceSettingsCard } from './settings-form.tsx'
-import { VoiceSettingsPage, VoiceMicrophoneIcon } from './custom-settings-page.tsx'
+import { VoiceSettingsPage, VoiceMicrophoneIcon, VoiceSidebarMicrophoneIcon } from './custom-settings-page.tsx'
 import { createHttpScope } from './settings-http-scope.ts'
 
 // settingsScope 仅 ≤0.1.6 客户端提供；0.1.7+ 已移除，列入 inject 会使插件永远 pending（真机冒烟实证）。
@@ -566,7 +566,7 @@ export function apply(ctx: any): void {
     { name: 'main', key: 'voice-mode', inject: () => ({ scope }) }, VoiceSettingsPage,
   ))
   ctx.slots.inject('sidebar.panellist', () => ctx.slots.register(
-    { name: 'sidebar.panellist', id: 'voice-mode', order: -5, label: () => t('stateVoiceMode') }, VoiceMicrophoneIcon,
+    { name: 'sidebar.panellist', id: 'voice-mode', order: -5, label: () => t('stateVoiceMode') }, VoiceSidebarMicrophoneIcon,
   ))
   ctx.slots.inject('settings.plugin.item', () =>
     ctx.slots.register(

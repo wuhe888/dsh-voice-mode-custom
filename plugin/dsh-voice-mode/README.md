@@ -2,11 +2,11 @@
 
 基于 [qishuilalala/dsh-voice-mode v0.7.38](https://github.com/qishuilalala/dsh-voice-mode/tree/v0.7.38) 的社区定制版，由 wuhe888 维护。保留原作者的语音识别、朗读、字幕和打断功能，增加独立侧栏设置页面与响应式布局。此项目不是 DeepSeek 官方插件，也不是原作者发布的版本。
 
-上游基线：`c8eed54d46823d22ce62e070c71ac551b0e6a17a`。本版：`0.7.38-custom.1`。原始 MIT 许可证、版权声明和第三方许可均保留。
+上游基线：`c8eed54d46823d22ce62e070c71ac551b0e6a17a`。本版：`0.7.38-custom.2`。原始 MIT 许可证、版权声明和第三方许可均保留。
 
 ## 定制内容
 
-- 侧栏“语音模式”直接打开主面板设置页；原来的设置弹窗入口继续可用。
+- 侧栏“语音模式”使用线框麦克风图标，直接打开主面板设置页；页面顶部标题加粗，原来的设置弹窗入口继续可用。
 - 两个入口共用设置，修改立即同步，折叠面板使用各自独立的无障碍标识。
 - 主页面内容居中，最大宽度 960px；长页面可滚动，窄面板中名称与控件上下排列。
 - 语音状态条跟随宿主输入框的宽度变量；宿主未提供变量时使用明确的布局回退值。
@@ -21,13 +21,13 @@
 需要已安装的 DeepSeek Harness。先关闭同一个 profile 中的原版 `dsh-voice-mode`，再安装定制版：二者共享 `voice-mode` 插件标识、HTTP 路由和设置文件，不能同时启用。桌面应用预装的原版需要通过该应用支持的插件管理方式关闭；本插件不会自行改写桌面应用。
 
 ```sh
-dsh plugin --profile web add github:wuhe888/dsh-voice-mode-custom#v0.7.38-custom.1
+dsh plugin --profile web add github:wuhe888/dsh-voice-mode-custom#v0.7.38-custom.2
 ```
 
 安装后重启 DSH。也可以从 GitHub Releases 下载 `.tgz`，执行：
 
 ```sh
-dsh plugin --profile web add ./dsh-voice-mode-custom-0.7.38-custom.1.tgz
+dsh plugin --profile web add ./dsh-voice-mode-custom-0.7.38-custom.2.tgz
 ```
 
 本项目首先通过 GitHub 分发，未发布到 npm；仅输入 `dsh-voice-mode-custom` 不是这里提供的安装方式。主侧栏入口需要宿主支持 `main` 与 `sidebar.panellist` 槽位，旧宿主可继续使用原有设置弹窗。上游声明的版本范围不代表本定制版逐版本验收。

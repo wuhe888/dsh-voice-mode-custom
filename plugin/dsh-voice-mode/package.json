@@ -2,7 +2,7 @@
   "name": "dsh-voice-mode-custom",
   "description": "Custom edition of dsh-voice-mode 0.7.38 with a standalone sidebar settings page, responsive layout, and desktop worker fixes.",
   "icon": "./icon.svg",
-  "version": "0.7.38-custom.1",
+  "version": "0.7.38-custom.2",
   "type": "module",
   "main": "lib/index.js",
   "repository": {
