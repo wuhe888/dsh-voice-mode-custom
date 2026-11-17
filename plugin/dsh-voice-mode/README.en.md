@@ -1,4 +1,8 @@
-# dsh-voice-mode
+# dsh-voice-mode-custom
+
+This is wuhe888's custom edition of upstream v0.7.38, with a standalone sidebar settings page, responsive layout, Windows child-process window handling, and unpacked ASAR worker paths. See the [custom edition guide](https://github.com/wuhe888/dsh-voice-mode-custom#readme) for installation, development, compatibility limits, and release downloads. This edition is distributed through GitHub and has not been published to npm. Disable the original plugin before enabling this edition because both use the same runtime services and settings.
+
+The upstream documentation below describes the original plugin. Its upstream npm package, release badges, installation commands, and release process are historical references for this custom edition.
 
 [![License: MIT](https://img.shields.io/github/license/qishuilalala/dsh-voice-mode?style=flat-square&color=blue)](./LICENSE)
 [![Latest Release](https://img.shields.io/github/v/release/qishuilalala/dsh-voice-mode?style=flat-square&color=brightgreen&include_prereleases)](https://github.com/qishuilalala/dsh-voice-mode/releases)
